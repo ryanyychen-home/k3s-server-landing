@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="A personal Kubernetes homelab built with Hyper-V, Ubuntu Server, K3s, Terraform, and Argo CD."
+    />
+    <meta name="theme-color" content="#08111f" />
+    <title>K3s Homelab · Ryan Chen</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="ambient ambient-one" aria-hidden="true"></div>
+    <div class="ambient ambient-two" aria-hidden="true"></div>
+
+    <header class="site-header wrap">
+      <a class="brand" href="#top" aria-label="K3s homelab home">
+        <span class="brand-mark" aria-hidden="true">RC</span>
+        <span>k3s-server</span>
+      </a>
+      <nav aria-label="Primary navigation">
+        <a href="#architecture">Architecture</a>
+        <a href="#delivery">Delivery</a>
+        <a href="https://github.com/ryanyychen-home" rel="noreferrer">GitHub</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero wrap">
+        <div class="hero-copy">
+          <p class="eyebrow"><span class="pulse"></span> Homelab online</p>
+          <h1>A small cluster with a serious workflow.</h1>
+          <p class="lede">
+            A personal Kubernetes environment for building and operating web
+            applications with infrastructure as code, GitOps, and a deliberately
+            simple single-node footprint.
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="#architecture">Explore the stack</a>
+            <a
+              class="button secondary"
+              href="https://github.com/ryanyychen-home/k3s-server"
+              rel="noreferrer"
+            >View the configuration</a>
+          </div>
+        </div>
+
+        <div class="cluster-card" aria-label="Cluster summary">
+          <div class="cluster-card-top">
+            <span class="window-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span>cluster / home</span>
+          </div>
+          <div class="terminal-line"><span>$</span> kubectl get nodes</div>
+          <div class="node-row">
+            <div>
+              <strong>k3s-server</strong>
+              <span>control-plane, worker</span>
+            </div>
+            <span class="ready">Ready</span>
+          </div>
+          <dl class="cluster-stats">
+            <div><dt>Topology</dt><dd>Single node</dd></div>
+            <div><dt>Ingress</dt><dd>Traefik</dd></div>
+            <div><dt>Delivery</dt><dd>Argo CD</dd></div>
+          </dl>
+        </div>
+      </section>
+
+      <section class="metrics wrap" aria-label="Platform highlights">
+        <article><strong>01</strong><span>physical host</span></article>
+        <article><strong>01</strong><span>Ubuntu VM</span></article>
+        <article><strong>01</strong><span>K3s node</span></article>
+        <article><strong>∞</strong><span>things to learn</span></article>
+      </section>
+
+      <section class="section wrap" id="architecture">
+        <div class="section-heading">
+          <p class="eyebrow">Architecture</p>
+          <h2>One machine, clearly layered.</h2>
+          <p>
+            Each layer has one job, from the physical Windows host to the workloads
+            reconciled inside Kubernetes.
+          </p>
+        </div>
+
+        <div class="architecture-grid">
+          <div class="stack" aria-label="Infrastructure layers">
+            <article class="layer layer-apps">
+              <span class="layer-index">05</span>
+              <div><h3>Applications</h3><p>Frontend and backend workloads</p></div>
+              <span class="tag">Workloads</span>
+            </article>
+            <article class="layer layer-platform">
+              <span class="layer-index">04</span>
+              <div><h3>Platform</h3><p>Argo CD · Traefik · Kubernetes Services</p></div>
+              <span class="tag">GitOps</span>
+            </article>
+            <article class="layer">
+              <span class="layer-index">03</span>
+              <div><h3>K3s</h3><p>Single control-plane and worker node</p></div>
+              <span class="tag">Cluster</span>
+            </article>
+            <article class="layer">
+              <span class="layer-index">02</span>
+              <div><h3>Ubuntu Server</h3><p>Lean virtual-machine operating system</p></div>
+              <span class="tag">Guest</span>
+            </article>
+            <article class="layer">
+              <span class="layer-index">01</span>
+              <div><h3>Windows + Hyper-V</h3><p>Physical host and virtualization</p></div>
+              <span class="tag">Host</span>
+            </article>
+          </div>
+
+          <aside class="principles">
+            <p class="eyebrow">Design principles</p>
+            <ul>
+              <li><span>01</span><div><strong>Declarative by default</strong><p>Desired state lives in version-controlled configuration.</p></div></li>
+              <li><span>02</span><div><strong>Small and understandable</strong><p>Every component earns its place in the stack.</p></div></li>
+              <li><span>03</span><div><strong>Private administration</strong><p>Management surfaces stay on the trusted network.</p></div></li>
+              <li><span>04</span><div><strong>Built to evolve</strong><p>The same workflow can grow with new applications and nodes.</p></div></li>
+            </ul>
+          </aside>
+        </div>
+      </section>
+
+      <section class="section wrap" id="delivery">
+        <div class="section-heading">
+          <p class="eyebrow">Delivery pipeline</p>
+          <h2>Git is the control surface.</h2>
+          <p>
+            Terraform establishes the platform. Argo CD continuously turns Git
+            changes into cluster state.
+          </p>
+        </div>
+
+        <div class="flow" aria-label="GitOps deployment flow">
+          <article><span class="flow-number">1</span><div><h3>Change</h3><p>Application or infrastructure configuration is updated in Git.</p></div></article>
+          <span class="flow-arrow" aria-hidden="true">→</span>
+          <article><span class="flow-number">2</span><div><h3>Reconcile</h3><p>Argo CD detects drift and applies the declared manifests.</p></div></article>
+          <span class="flow-arrow" aria-hidden="true">→</span>
+          <article><span class="flow-number">3</span><div><h3>Serve</h3><p>K3s schedules the workload and Traefik routes the request.</p></div></article>
+        </div>
+      </section>
+
+      <section class="section wrap toolkit">
+        <div class="section-heading compact">
+          <p class="eyebrow">Toolkit</p>
+          <h2>The pieces of the platform.</h2>
+        </div>
+        <div class="tool-list" aria-label="Technology stack">
+          <span>Windows 10</span><span>Hyper-V</span><span>Ubuntu Server</span>
+          <span>K3s</span><span>Kubernetes</span><span>Traefik</span>
+          <span>Terraform</span><span>Argo CD</span><span>Tailscale</span>
+        </div>
+      </section>
+    </main>
+
+    <footer class="wrap">
+      <p>Designed as a living map of a personal Kubernetes lab.</p>
+      <a href="https://github.com/ryanyychen-home" rel="noreferrer">ryanyychen-home ↗</a>
+    </footer>
+  </body>
+</html>
