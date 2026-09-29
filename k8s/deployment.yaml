@@ -19,7 +19,7 @@ spec:
           type: RuntimeDefault
       containers:
         - name: web
-          image: ghcr.io/ryanyychen-home/k3s-server-landing:main
+          image: ghcr.io/ryanyychen-home/k3s-server-landing:f21ff1ff030a93aa94771edda0d7a99b270c4ece
           imagePullPolicy: IfNotPresent
           ports:
             - name: http
