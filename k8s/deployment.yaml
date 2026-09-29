@@ -19,7 +19,7 @@ spec:
           type: RuntimeDefault
       containers:
         - name: web
-          image: nginxinc/nginx-unprivileged:alpine
+          image: ghcr.io/ryanyychen-home/k3s-server-landing:main
           imagePullPolicy: IfNotPresent
           ports:
             - name: http
@@ -52,15 +52,9 @@ spec:
             readOnlyRootFilesystem: true
             runAsNonRoot: true
           volumeMounts:
-            - name: site
-              mountPath: /usr/share/nginx/html
-              readOnly: true
             - name: runtime
               mountPath: /tmp
       volumes:
-        - name: site
-          configMap:
-            name: landing-site
         - name: runtime
           emptyDir:
             sizeLimit: 16Mi

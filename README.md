@@ -16,14 +16,24 @@ Then visit <http://localhost:8080/>.
 
 ## Kubernetes deployment
 
-The root Kustomization generates a versioned ConfigMap from `site/` and mounts it
-into an unprivileged nginx Deployment. A site change therefore changes the
-generated ConfigMap name and triggers a rollout without building a custom image.
+GitHub Actions builds `site/` into an unprivileged nginx image and publishes it
+to GitHub Container Registry. The workflow tags the image with the Git commit,
+updates `k8s/deployment.yaml`, and commits that immutable version back to `main`.
+Argo CD then reconciles the new Deployment image.
+
+The package is published at:
+
+```text
+ghcr.io/ryanyychen-home/k3s-server-landing
+```
+
+The package must be public for anonymous image pulls. If it remains private,
+configure an `imagePullSecret` in the `k3s-server-landing` namespace instead.
 
 Render the manifests locally:
 
 ```sh
-kubectl kustomize .
+kubectl kustomize k8s
 ```
 
 Argo CD deploys the repository into the `k3s-server-landing` namespace. The
